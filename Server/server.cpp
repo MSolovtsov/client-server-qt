@@ -1,3 +1,4 @@
+
 #include "server.h"
 
 MyServer::MyServer() {
@@ -18,9 +19,9 @@ MyServer::MyServer() {
 void MyServer::incomingConnection(qintptr socketDescriptor){
     this->socket = new QTcpSocket; // задаем новый сокет
     socket->setSocketDescriptor(socketDescriptor); // устанавливаем в него дискриптер из аргументов функции
-    /* Дискривтер - простое неотрицательное число, которое индивицирует поток ввода-вывода */
+    /* Дискриптер - простое неотрицательное число, которое индефицирует поток ввода-вывода */
 
-    // объединяем функцию с соответсвенным стотом
+    // объединяем функцию с соответсвенным слотом
     connect(socket, &QTcpSocket::readyRead, this, &MyServer::slotReadyRead);
     connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
 
@@ -28,7 +29,7 @@ void MyServer::incomingConnection(qintptr socketDescriptor){
     qDebug() << "Client connected" << socketDescriptor;
 }
 
-// обработчик получееных от клиента сообщений
+// обработчик полученных от клиента сообщений
 void MyServer::slotReadyRead(){
     // смотрим тот сокет, на который пришел запрос
     this->socket = (QTcpSocket*)sender();
@@ -61,7 +62,7 @@ void MyServer::slotReadyRead(){
             this->nextBlockSize = 0;
             qDebug() << str;
             // отправляем клиенту
-            SendToClirnt(str);
+            SendToClient(str);
             break;
         }
 
@@ -73,7 +74,7 @@ void MyServer::slotReadyRead(){
 }
 
 // функция для передачи данных клиенту
-void MyServer::SendToClirnt(QString str /*сообщение, которое надо отправить*/){
+void MyServer::SendToClient(QString str /*сообщение, которое надо отправить*/){
     this->Data.clear();
     // данные только на вывод  в массив байтов
     QDataStream out(&this->Data, QIODevice::WriteOnly);

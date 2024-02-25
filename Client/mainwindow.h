@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QTcpSocket>
 #include <QTime>
+#include <nlohmann/json.hpp>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

@@ -9,6 +9,14 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+
+include(FetchContent)
+
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+FetchContent_MakeAvailable(json)
+
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
     Widgets
     Network
@@ -51,6 +59,7 @@ endif()
 target_link_libraries(Client PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Network
+    nlohmann_json::nlohmann_json
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
